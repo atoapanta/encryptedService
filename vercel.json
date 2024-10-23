@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "/src/index.js",
+      "src": "src/index.js",
       "use": "@vercel/node",
       "config": {
         "node_version": "20.x"
@@ -11,7 +11,7 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/encrypted-service",
       "dest": "/src/index.js"
     }
   ]
