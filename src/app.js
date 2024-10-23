@@ -3,7 +3,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import compression from "compression";
 import cors from "cors";
-import path from "path";
+
 
 // Import swagger configuration
 import setupSwagger from "./config/swagger.js";
@@ -30,7 +30,5 @@ app.use("/encrypted-service/api/V1", EncryptedRoute);
 //Config Swagger
 setupSwagger(app);
 
-//Public static
-app.use("/api-docs", express.static(path.join(__dirname,'node_modules/swagger-ui-dist');
 
 export { app };
