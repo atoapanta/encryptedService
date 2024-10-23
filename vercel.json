@@ -11,7 +11,7 @@
   ],
   "routes": [
     {
-      "src": "/encrypted-service",
+      "src": "/(.*)",
       "dest": "/src/index.js"
     }
   ]
