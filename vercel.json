@@ -11,6 +11,10 @@
   ],
   "routes": [
     {
+      "src": "/encrypted-service/api-docs",
+      "dest": "/api-docs"
+    },
+    {
       "src": "/(.*)",
       "dest": "/src/index.js"
     }
