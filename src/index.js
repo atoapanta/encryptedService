@@ -3,6 +3,6 @@ import config from "./config/setting.js";
 
 const { PORT } = config;
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto ${PORT} `);
+const server = app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${server.address().port} `);
 });
