@@ -23,10 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Routes
-// app.use("/encrypted-service/api/V1", EncryptedRoute);
-app.use("/", (req, res) => {
-  return res.send("hola");
-});
+app.use("/encrypted-service/api/V1", EncryptedRoute);
 
 //Config Swagger
 setupSwagger(app);
