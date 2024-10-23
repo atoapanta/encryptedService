@@ -16,6 +16,7 @@ const app = express();
 //Middlewares
 app.use(helmet());
 app.use(morgan("combined"));
+app.set("trust proxy", 1);
 app.use(compression());
 app.use(limiter);
 app.use(cors(corsConfig));
