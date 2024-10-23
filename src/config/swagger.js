@@ -3,6 +3,10 @@ import swaggerUi from "swagger-ui-express";
 
 import setting from "../config/setting.js";
 
+// URL del CSS de Swagger desde CDN
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.3.0/swagger-ui.min.css";
+
 const { URL } = setting;
 
 const swaggerOptions = {
@@ -26,5 +30,11 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 export default (app) => {
-  app.use("/encrypted-service", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  app.use(
+    "/encrypted-service",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocs, {
+      customCssUrl: CSS_URL,
+    })
+  );
 };
