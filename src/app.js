@@ -29,4 +29,7 @@ app.use("/encrypted-service/api/V1", EncryptedRoute);
 //Config Swagger
 setupSwagger(app);
 
+//Public static
+app.use(express.static("public"));
+
 export { app };
