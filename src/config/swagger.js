@@ -1,5 +1,6 @@
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import path from "path";
 
 import setting from "../config/setting.js";
 
@@ -31,10 +32,6 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 export default (app) => {
   app.use(
-    "/encrypted-service",
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerDocs, {
-      customCssUrl: CSS_URL,
-    })
+    "/encrypted-service", express.static(path.join(__dirname,'node_modules/swagger-ui-dist'))
   );
 };
