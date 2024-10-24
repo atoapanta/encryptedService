@@ -13,6 +13,9 @@ import { corsConfig, limiter } from "./lib/helpers.js";
 
 const app = express();
 
+// Public path
+app.use(express.static("public"));
+
 //Middlewares
 app.use(helmet());
 app.use(morgan("combined"));
@@ -22,14 +25,6 @@ app.use(limiter);
 app.use(cors(corsConfig));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "script-src 'self' https://vercel.live; style-src 'self' https://encrypted-service.vercel.app"
-  );
-  next();
-});
 
 //Routes
 app.use("/encrypted-service/api/V1", EncryptedRoute);
