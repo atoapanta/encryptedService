@@ -3,6 +3,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import compression from "compression";
 import cors from "cors";
+import path from "path";
 
 // Import swagger configuration
 import setupSwagger from "./config/swagger.js";
@@ -13,8 +14,8 @@ import { corsConfig, limiter } from "./lib/helpers.js";
 
 const app = express();
 
-// Public path
-app.use(express.static("public"));
+// Ruta para servir archivos estáticos desde la carpeta public
+app.use(express.static(path.join(process.cwd(), "public")));
 
 //Middlewares
 app.use(helmet());
