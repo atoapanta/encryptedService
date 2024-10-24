@@ -31,18 +31,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(
-  express.static("public", {
-    setHeaders: (res, path) => {
-      if (path.endsWith(".css")) {
-        res.set("Content-Type", "text/css");
-      } else if (path.endsWith(".js")) {
-        res.set("Content-Type", "application/javascript");
-      }
-    },
-  })
-);
-
 //Routes
 app.use("/encrypted-service/api/V1", EncryptedRoute);
 
