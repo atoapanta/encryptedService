@@ -4,7 +4,6 @@ import morgan from "morgan";
 import compression from "compression";
 import cors from "cors";
 
-
 // Import swagger configuration
 import setupSwagger from "./config/swagger.js";
 
@@ -23,6 +22,26 @@ app.use(limiter);
 app.use(cors(corsConfig));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' https://vercel.live; style-src 'self' https://encrypted-service.vercel.app"
+  );
+  next();
+});
+
+app.use(
+  express.static("public", {
+    setHeaders: (res, path) => {
+      if (path.endsWith(".css")) {
+        res.set("Content-Type", "text/css");
+      } else if (path.endsWith(".js")) {
+        res.set("Content-Type", "application/javascript");
+      }
+    },
+  })
+);
 
 //Routes
 app.use("/encrypted-service/api/V1", EncryptedRoute);
