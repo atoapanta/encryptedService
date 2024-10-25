@@ -14,9 +14,6 @@ import { corsConfig, limiter } from "./lib/helpers.js";
 
 const app = express();
 
-// Ruta para servir archivos estáticos desde la carpeta public
-app.use(express.static(path.join(process.cwd(), "public")));
-
 //Middlewares
 app.use(helmet());
 app.use(morgan("combined"));
@@ -27,19 +24,13 @@ app.use(cors(corsConfig));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  const rutaRelativa = "./src/config/keys.js";
-
-  // Convertir la ruta relativa en absoluta
-  const rutaAbsoluta = path.resolve(rutaRelativa);
-
-  return res.status(200).json({ route: rutaAbsoluta });
-});
-
 //Routes
 app.use("/encrypted-service/api/V1", EncryptedRoute);
 
 //Config Swagger
 setupSwagger(app);
+
+//Public statics
+app.use(express.static(path.join(process.cwd(), "public")));
 
 export { app };
