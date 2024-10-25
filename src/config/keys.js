@@ -5,13 +5,13 @@ import setting from "./setting.js";
 
 const { PUB_KEY_PATH } = setting;
 
-const keyPath = path.resolve(PUB_KEY_PATH);
+// const keyPath = path.resolve(PUB_KEY_PATH);
 
 // Public Key PEM
-const pubKeyPem = fs.readFileSync(keyPath, "utf8");
+// const pubKeyPem = fs.readFileSync(keyPath, "utf8");
 
 // Convert public key pem to forge pki
-const publicKey = forge.pki.publicKeyFromPem(pubKeyPem);
+const publicKey = forge.pki.publicKeyFromPem(PUB_KEY_PATH);
 
 // Export public key
 export { publicKey };
