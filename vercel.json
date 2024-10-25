@@ -12,7 +12,7 @@
   "routes": [
     {
       "src": "/encrypted-service",
-      "dest": "/"
+      "dest": "/encrypted-service"
     },
     {
       "src": "/(.*)",
