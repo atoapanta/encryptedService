@@ -1,17 +1,10 @@
-import fs from "fs";
-import path from "path";
 import forge from "node-forge";
 import setting from "./setting.js";
 
-const { PUB_KEY_PATH } = setting;
-
-// const keyPath = path.resolve(PUB_KEY_PATH);
-
-// Public Key PEM
-// const pubKeyPem = fs.readFileSync(keyPath, "utf8");
+const { PUBLIC_KEY } = setting;
 
 // Convert public key pem to forge pki
-const publicKey = forge.pki.publicKeyFromPem(PUB_KEY_PATH);
+const publicKey = forge.pki.publicKeyFromPem(PUBLIC_KEY);
 
 // Export public key
 export { publicKey };
