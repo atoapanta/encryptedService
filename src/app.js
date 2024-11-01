@@ -1,9 +1,13 @@
 import express from "express";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import path from "path";
 
 const app = express();
 app.use(express.json());
+
+// Servir archivos estáticos desde la carpeta public
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Configuración de Swagger
 const swaggerOptions = {
@@ -18,39 +22,15 @@ const swaggerOptions = {
   apis: ["./src/swagger.js"], // Ruta donde se definen las APIs
 };
 
-const CSS_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/init.js";
-
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocs, { customCssUrl: CSS_URL })
-);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Endpoint de ejemplo
-/**
- * @swagger
- * /:
- *   get:
- *     summary: Devuelve un mensaje simple.
- *     responses:
- *       200:
- *         description: Respuesta exitosa.
- */
 app.get("/", (req, res) => {
-  res.json({ message: "API On" });
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 // Otro endpoint para demostrar Swagger
-/**
- * @swagger
- * /message:
- *   get:
- *     summary: Obtiene un mensaje.
- *     responses:
- *       200:
- *         description: Mensaje obtenido exitosamente.
- */
 app.get("/message", (req, res) => {
   res.json({ message: "Hello from the API!" });
 });
