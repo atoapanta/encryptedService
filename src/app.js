@@ -18,8 +18,7 @@ const swaggerOptions = {
   apis: ["./src/swagger.js"], // Ruta donde se definen las APIs
 };
 
-const CSS_URL =
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+const CSS_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/init.js";
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(
