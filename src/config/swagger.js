@@ -27,4 +27,9 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 export default (app) => {
   app.use("/encrypted-service", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+  app.get("/api-docs-ui", (req, res) => {
+    res.setHeader("Content-Type", "text/css");
+    res.sendFile(path.join(__dirname, "node_modules/swagger-ui.css"));
+  });
 };
