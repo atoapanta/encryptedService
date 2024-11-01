@@ -1,37 +1,47 @@
 import express from "express";
-import swaggerJsDoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
+import swaggerUi from "swagger-ui-dist"; // Importa swagger-ui-dist
+import path from "path";
 
 const app = express();
 app.use(express.json());
 
-// Swagger configuration
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "API Example",
-      version: "1.0.0",
+// Ruta para servir la documentación Swagger
+app.use("/api-docs", express.static(swaggerUi.getAbsoluteFSPath()));
+
+// Define tu especificación OpenAPI (puedes cargarla desde un archivo o definirla aquí)
+const swaggerDocument = {
+  openapi: "3.0.0",
+  info: {
+    title: "API Example",
+    version: "1.0.0",
+  },
+  paths: {
+    "/": {
+      get: {
+        summary: "Returns a simple message.",
+        responses: {
+          200: {
+            description: "A successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     },
   },
-  apis: ["./src/*.js"], // path where API docs are defined
 };
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// Sample endpoint
-/**
- * @swagger
- * /:
- *   get:
- *     summary: Returns a simple message.
- *     responses:
- *       200:
- *         description: A successful response
- */
-app.get("/", (req, res) => {
-  res.json({ message: "API On" });
+// Endpoint para servir el swagger.json (especificación)
+app.get("/api-docs/swagger.json", (req, res) => {
+  res.json(swaggerDocument);
 });
 
 export { app };
