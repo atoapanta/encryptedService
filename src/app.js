@@ -14,21 +14,51 @@ const swaggerOptions = {
       version: "1.0.0",
     },
   },
-  apis: ["./src/index.js"], // path where API docs are defined
+  apis: ["./src/*.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// Sample endpoint
 /**
  * @swagger
- * /:
- *   get:
- *     description: Returns a simple message.
+ * /api/V1/encrypted:
+ *   post:
+ *     summary: Encrypt data
+ *     description: Encrypts the provided data using a public key and returns the encrypted key and JWT.
+ *     tags:
+ *       - Encrypted data endpoint
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: object
+ *                 description: The data to be encrypted.
+ *                 example:
+ *                   {
+ *                     "name": "Alexander Dev",
+ *                     "email": "xander.dev@example.com"
+ *                   }
  *     responses:
  *       200:
- *         description: A successful response
+ *         description: Successfully encrypted the data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 jwt:
+ *                   type: string
+ *                   description: The encrypted JWT token.
+ *                 encryptedKey:
+ *                   type: string
+ *                   description: The encrypted symmetric key used for encryption.
+ *       500:
+ *         description: Internal server error.
  */
 app.get("/", (req, res) => {
   res.json({ message: "API On" });
